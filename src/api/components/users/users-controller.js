@@ -10,7 +10,7 @@ async function getUsers(req, res, next) {
 
     const users = await usersService.getUsers(offset, limit);
 
-    return res.status(200);
+    return res.status(200).json(users);
   } catch (error) {
     return next(error);
   }

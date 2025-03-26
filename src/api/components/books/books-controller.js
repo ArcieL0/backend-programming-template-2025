@@ -8,7 +8,7 @@ async function getBooks(req, res, next) {
 
     const books = await booksService.getBooks(offset, limit);
 
-    return res.status(200);
+    return res.status(200).json(books);
   } catch (error) {
     return next(error);
   }
