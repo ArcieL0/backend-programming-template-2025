@@ -8,6 +8,10 @@ async function getUser(id) {
   return Users.findById(id);
 }
 
+async function getUsers(offset, limit) {
+  return usersRepository.getUsers(offset, limit);
+}
+
 async function getUserByEmail(email) {
   return Users.findOne({ email });
 }

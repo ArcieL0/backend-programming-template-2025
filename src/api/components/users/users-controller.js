@@ -2,6 +2,20 @@ const usersService = require('./users-service');
 const { errorResponder, errorTypes } = require('../../../core/errors');
 const { hashPassword, passwordMatched } = require('../../../utils/password');
 
+
+async function getUsers(req, res, next) {
+  try {
+    const offset = parseInt(req.query.offset) || 0;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const users = await usersService.getUsers(offset, limit);
+
+    return res.status(200);
+  } catch (error) {
+    return next(error);
+  }
+}
+
 async function getUsers(request, response, next) {
   try {
     const users = await usersService.getUsers();
@@ -142,7 +156,7 @@ async function login(request,response,next){
       if(!passValid){
         throw errorResponder(errorTypes.VALIDATION_ERROR, "Password tidak valid");
       }
-      
+       
       const user = await usersService.getUserByEmail(email);
         if(!user){
           throw errorResponder(
